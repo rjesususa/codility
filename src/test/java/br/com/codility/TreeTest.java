@@ -193,7 +193,7 @@ public class TreeTest {
         root.setRightNodes(rightNode1);
 
 
-        assertThat(root.maxValue(), is(12));
+        assertThat(root.maxValue(), is(15));
     }
 
 }
