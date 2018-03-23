@@ -1,6 +1,9 @@
 language: java
 jdk:
   - oraclejdk8
+before_install:
+  - ls
+install: ./gradlew test
 
 notifications:
   email:
