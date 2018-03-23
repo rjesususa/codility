@@ -1,5 +1,8 @@
 package br.com.codility;
 
+import static java.lang.Integer.max;
+import static java.util.Objects.isNull;
+
 /**
  * Created by Raneves on 22/03/18.
  */
@@ -9,7 +12,8 @@ public class Tree {
     private Tree leftNodes;
     private Tree rightNodes;
 
-    public Tree() {
+    public Tree(Integer value) {
+        this.value = value;
     }
 
     public Tree(Tree parent, Integer value) {
@@ -27,10 +31,6 @@ public class Tree {
 
     public int getValue() {
         return value;
-    }
-
-    public void setValue(int value) {
-        this.value = value;
     }
 
     public void setValue(Integer value) {
@@ -53,28 +53,24 @@ public class Tree {
         this.rightNodes = rightNodes;
     }
 
-    public int maxValue() {
-        int maxValueOnLeftNodes = getValue();
-        Tree tree = getLeftNodes();
-        if(tree != null) {
-            do {
-                if (tree.getValue() > maxValueOnLeftNodes) {
-                    maxValueOnLeftNodes = tree.getValue();
-                }
-            } while ((tree = tree.getLeftNodes()) != null);
+    private int maxValue(int value) {
+        int maxValue = max(value, isNull(leftNodes) ? 0 : leftNodes.value);
+        maxValue = max(maxValue, isNull(rightNodes) ? 0 : rightNodes.value);
+
+        if (!isNull(rightNodes)) {
+            maxValue = rightNodes.maxValue(maxValue);
         }
 
-        int maxValueOnRightNodes = 0;
-
-        tree = getRightNodes();
-        if(tree!= null) {
-            do {
-                if (tree.getValue() > maxValueOnRightNodes) {
-                    maxValueOnRightNodes = tree.getValue();
-                }
-            } while ((tree = tree.getRightNodes()) != null);
+        if (!isNull(leftNodes)) {
+            maxValue = leftNodes.maxValue(maxValue);
         }
 
-        return maxValueOnLeftNodes > maxValueOnRightNodes ? maxValueOnLeftNodes : maxValueOnRightNodes;
+        return maxValue;
     }
+
+    public int maxValue() {
+        return maxValue(value);
+    }
+
+
 }
