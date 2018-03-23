@@ -2,8 +2,8 @@ language: java
 jdk:
   - oraclejdk8
 
-install: ./gradlew check
-
+install: "echo \"skip './gradlew assemble' step\""
+script: "./gradlew build --continue"
 notifications:
   email:
     recipients:
