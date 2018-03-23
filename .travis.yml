@@ -1,9 +1,8 @@
 language: java
 jdk:
   - oraclejdk8
-  - openjdk7
 
-install: ./gradlew check
+install: gradlew check
 
 notifications:
   email:
