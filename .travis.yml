@@ -3,7 +3,7 @@ jdk:
   - oraclejdk8
 before_install:
   - ls
-install: ./gradlew test
+install: ./gradlew build
 
 notifications:
   email:
