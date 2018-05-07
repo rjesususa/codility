@@ -72,5 +72,7 @@ public class Tree {
         return maxValue(value);
     }
 
-
+    public int maxRepeatableValue() {
+        return 0;
+    }
 }
