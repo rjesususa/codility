@@ -196,4 +196,41 @@ public class TreeTest {
         assertThat(root.maxValue(), is(15));
     }
 
+    @Test
+    public void returnsTheMaxRepeatableValue3WhenTreeHasNodesWithManyLeftAndRightDirections() {
+        Tree root = new Tree(0);
+
+        Tree leftNodeValue3 = new Tree(root, 3);
+        Tree leftNodeValue5 = new Tree(leftNodeValue3, 5);
+        Tree leftNodeValue4 = new Tree(leftNodeValue5, 4);
+        Tree rightNodeValue3 = new Tree(leftNodeValue5, 3);
+        Tree leftNodeValue1 = new Tree(rightNodeValue3, 1);
+        Tree rightNodeValue7 = new Tree(rightNodeValue3, 7);
+        Tree leftNodeValue05 = new Tree(rightNodeValue7, 5);
+        Tree rightNodeValue03 = new Tree(rightNodeValue7, 3);
+
+        rightNodeValue7.setRightNodes(rightNodeValue03);
+        rightNodeValue7.setLeftNodes(leftNodeValue05);
+        rightNodeValue3.setRightNodes(rightNodeValue7);
+        rightNodeValue3.setLeftNodes(leftNodeValue1);
+        leftNodeValue5.setRightNodes(rightNodeValue3);
+        leftNodeValue5.setLeftNodes(leftNodeValue4);
+        leftNodeValue3.setLeftNodes(leftNodeValue5);
+        root.setLeftNodes(leftNodeValue3);
+
+        Tree rightNodeValue9 = new Tree(root, 9);
+        Tree rightNodeValue10 = new Tree(rightNodeValue9, 10);
+        Tree leftNodeValue2 = new Tree(rightNodeValue9, 2);
+        Tree leftNodeValue8 = new Tree(leftNodeValue2, 8);
+        Tree rightNodeValue5 = new Tree(leftNodeValue2, 5);
+
+        leftNodeValue2.setRightNodes(rightNodeValue5);
+        leftNodeValue2.setLeftNodes(leftNodeValue8);
+        rightNodeValue9.setLeftNodes(leftNodeValue2);
+        rightNodeValue9.setRightNodes(rightNodeValue10);
+        root.setRightNodes(rightNodeValue9);
+
+        assertThat(root.maxRepeatableValue(), is(3));
+    }
+
 }
