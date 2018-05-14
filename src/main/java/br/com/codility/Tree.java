@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static java.lang.Integer.max;
-import static java.util.Objects.isNull;
 
 /**
  * Created by Raneves on 22/03/18.
@@ -57,14 +56,14 @@ public class Tree {
     }
 
     private int maxValue(int value) {
-        int maxValue = max(value, isNull(leftNode) ? 0 : leftNode.value);
-        maxValue = max(maxValue, isNull(rightNode) ? 0 : rightNode.value);
+        int maxValue = max(value, leftNode == null ? 0 : leftNode.value);
+        maxValue = max(maxValue, rightNode == null ? 0 : rightNode.value);
 
-        if (!isNull(rightNode)) {
+        if (rightNode != null) {
             maxValue = rightNode.maxValue(maxValue);
         }
 
-        if (!isNull(leftNode)) {
+        if (leftNode != null) {
             maxValue = leftNode.maxValue(maxValue);
         }
 
@@ -76,48 +75,34 @@ public class Tree {
     }
 
     public int maxRepeatableValue() {
-        Map<Integer, Integer> leftNodeValues = new HashMap<>();
-        Map<Integer, Integer> rightNodeValues = new HashMap<>();
+        Map<Integer, Integer> leftNodeValues = createMapWithTheMostRepeatedValue(leftNode);
+        Map<Integer, Integer> rightNodeValues = createMapWithTheMostRepeatedValue(rightNode);
 
-        int keyLeftMaxValue = maxRepeatableValue(leftNodeValues, leftNode);
-        int keyRightMaxValue = maxRepeatableValue(rightNodeValues, rightNode);
-
-        final Integer leftNodeMaxNumberOfIterations = leftNodeValues.get(keyLeftMaxValue) == null ? 0: leftNodeValues.get(keyLeftMaxValue);
-        final Integer rightNodeMaxNumberOfIterations = rightNodeValues.get(keyRightMaxValue) == null ? 0 : rightNodeValues.get(keyRightMaxValue);
-
-        if (leftNodeMaxNumberOfIterations > rightNodeMaxNumberOfIterations) {
-            return keyLeftMaxValue;
-        }
-
-        return keyRightMaxValue;
+        return findTheKeyWithTheMostRepeatedValuesInThisMap(leftNodeValues, rightNodeValues);
     }
 
-    private int maxRepeatableValue(Map<Integer, Integer> nodeValues, Tree node) {
+    private int findTheKeyWithTheMostRepeatedValuesInThisMap(Map<Integer, Integer> leftNodeValues, Map<Integer, Integer> rightNodeValues) {
+        int keyWithTheMostRepeatedValuesByLeftNodeValues = retrieveKeyOfTheMostRepeatedValueFromNodes(leftNodeValues);
+        int keyWithTheMostRepeatedValuesByRightNodeValues = retrieveKeyOfTheMostRepeatedValueFromNodes(rightNodeValues);
+        int KeyWithTheMostRepeatedValue = keyWithTheMostRepeatedValuesByRightNodeValues;
 
-        if (node != null) {
-            Integer previousExistingValue = nodeValues.get(node.getValue()) == null ? 0 : nodeValues.get(node.getValue());
-            nodeValues.put(node.getValue(), ++previousExistingValue);
+        final Integer leftNodeMaxNumberOfIterations = leftNodeValues.get(keyWithTheMostRepeatedValuesByLeftNodeValues) == null ? 0 : leftNodeValues.get(keyWithTheMostRepeatedValuesByLeftNodeValues);
+        final Integer rightNodeMaxNumberOfIterations = rightNodeValues.get(keyWithTheMostRepeatedValuesByRightNodeValues) == null ? 0 : rightNodeValues.get(keyWithTheMostRepeatedValuesByRightNodeValues);
 
-
-            if (node.leftNode != null) {
-                Integer previousLeftExistingValue = nodeValues.get(node.leftNode.getValue()) == null ? 0 : nodeValues.get(node.leftNode.getValue());
-                nodeValues.put(node.leftNode.getValue(), ++previousLeftExistingValue);
-            }
-
-            if (node.rightNode != null) {
-                Integer previousRightExistingValue = nodeValues.get(node.rightNode.getValue()) == null ? 0 : nodeValues.get(node.rightNode.getValue());
-                nodeValues.put(node.rightNode.getValue(), ++previousRightExistingValue);
-            }
-
-            if (node.leftNode != null) {
-                node.leftNode.maxRepeatableValue(nodeValues, node.leftNode);
-            }
-
-            if (node.rightNode != null) {
-                node.rightNode.maxRepeatableValue(nodeValues, node.rightNode);
-            }
+        if (leftNodeMaxNumberOfIterations > rightNodeMaxNumberOfIterations) {
+            KeyWithTheMostRepeatedValue = keyWithTheMostRepeatedValuesByLeftNodeValues;
         }
 
+        return KeyWithTheMostRepeatedValue;
+    }
+
+    private Map<Integer, Integer> createMapWithTheMostRepeatedValue(Tree node) {
+        Map<Integer, Integer> nodeValues = new HashMap<>();
+        populateMapWithTheMostRepeatedValue(nodeValues, node);
+        return nodeValues;
+    }
+
+    private int retrieveKeyOfTheMostRepeatedValueFromNodes(Map<Integer, Integer> nodeValues) {
         final Integer[] maxRepeatableInteraction = {0};
         final Integer[] keyOfMaxRepeatableInteraction = {0};
         nodeValues.forEach((key, value) -> {
@@ -128,5 +113,28 @@ public class Tree {
         });
 
         return keyOfMaxRepeatableInteraction[0];
+    }
+
+    private void populateMapWithTheMostRepeatedValue(Map<Integer, Integer> nodeValues, Tree node) {
+
+        if (node != null) {
+            Integer previousExistingValue = nodeValues.get(node.getValue()) == null ? 0 : nodeValues.get(node.getValue());
+            nodeValues.put(node.getValue(), ++previousExistingValue);
+
+
+            if (node.leftNode != null) {
+                final int keyOfLeftNodeValue = node.leftNode.getValue();
+                Integer numberOfLeftNodeValueIteractions = nodeValues.get(keyOfLeftNodeValue) == null ? 0 : nodeValues.get(keyOfLeftNodeValue);
+                nodeValues.put(keyOfLeftNodeValue, ++numberOfLeftNodeValueIteractions);
+                node.leftNode.populateMapWithTheMostRepeatedValue(nodeValues, node.leftNode);
+            }
+
+            if (node.rightNode != null) {
+                Integer previousRightExistingValue = nodeValues.get(node.rightNode.getValue()) == null ? 0 : nodeValues.get(node.rightNode.getValue());
+                nodeValues.put(node.rightNode.getValue(), ++previousRightExistingValue);
+                node.rightNode.populateMapWithTheMostRepeatedValue(nodeValues, node.rightNode);
+            }
+        }
+
     }
 }
