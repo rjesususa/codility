@@ -105,14 +105,15 @@ public class Tree {
 
             if (node.leftNode != null) {
                 final int keyOfLeftNodeValue = node.leftNode.getValue();
-                Integer numberOfLeftNodeValueIteractions = nodeValues.get(keyOfLeftNodeValue) == null ? 0 : nodeValues.get(keyOfLeftNodeValue);
-                nodeValues.put(keyOfLeftNodeValue, ++numberOfLeftNodeValueIteractions);
+                Integer numberOfLeftNodeValueInteractions = nodeValues.get(keyOfLeftNodeValue) == null ? 0 : nodeValues.get(keyOfLeftNodeValue);
+                nodeValues.put(keyOfLeftNodeValue, ++numberOfLeftNodeValueInteractions);
                 node.leftNode.populateMapWithTheMostRepeatedValue(nodeValues, node.leftNode);
             }
 
             if (node.rightNode != null) {
-                Integer previousRightExistingValue = nodeValues.get(node.rightNode.getValue()) == null ? 0 : nodeValues.get(node.rightNode.getValue());
-                nodeValues.put(node.rightNode.getValue(), ++previousRightExistingValue);
+                final int keyOfRightNodeValue = node.rightNode.getValue();
+                Integer numberOfRightNodeValueInteractions = nodeValues.get(keyOfRightNodeValue) == null ? 0 : nodeValues.get(keyOfRightNodeValue);
+                nodeValues.put(keyOfRightNodeValue, ++numberOfRightNodeValueInteractions);
                 node.rightNode.populateMapWithTheMostRepeatedValue(nodeValues, node.rightNode);
             }
         }
