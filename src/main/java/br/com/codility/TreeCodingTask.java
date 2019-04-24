@@ -8,18 +8,18 @@ import static java.lang.Integer.max;
 /**
  * Created by Raneves on 22/03/18.
  */
-public class Tree {
+public class TreeCodingTask {
 
-    private Tree parent;
+    private TreeCodingTask parent;
     private Integer value;
-    private Tree leftNode;
-    private Tree rightNode;
+    private TreeCodingTask leftNode;
+    private TreeCodingTask rightNode;
 
-    public Tree(Integer value) {
+    public TreeCodingTask(Integer value) {
         this.value = value;
     }
 
-    public Tree(Tree parent, Integer value) {
+    public TreeCodingTask(TreeCodingTask parent, Integer value) {
         this.parent = parent;
         this.value = value;
     }
@@ -28,11 +28,11 @@ public class Tree {
         return value;
     }
 
-    public void setLeftNode(Tree leftNode) {
+    public void setLeftNode(TreeCodingTask leftNode) {
         this.leftNode = leftNode;
     }
 
-    public void setRightNode(Tree rightNode) {
+    public void setRightNode(TreeCodingTask rightNode) {
         this.rightNode = rightNode;
     }
 
@@ -77,7 +77,7 @@ public class Tree {
         return KeyWithTheMostRepeatedValue;
     }
 
-    private Map<Integer, Integer> createMapWithTheMostRepeatedValue(Tree node) {
+    private Map<Integer, Integer> createMapWithTheMostRepeatedValue(TreeCodingTask node) {
         Map<Integer, Integer> nodeValues = new HashMap<>();
         populateMapWithTheMostRepeatedValue(nodeValues, node);
         return nodeValues;
@@ -97,7 +97,7 @@ public class Tree {
         return keyOfMaxRepeatableInteraction[0];
     }
 
-    private void populateMapWithTheMostRepeatedValue(Map<Integer, Integer> nodeValues, Tree node) {
+    private void populateMapWithTheMostRepeatedValue(Map<Integer, Integer> nodeValues, TreeCodingTask node) {
 
         if (node != null) {
             Integer previousExistingValue = nodeValues.get(node.getValue()) == null ? 0 : nodeValues.get(node.getValue());
