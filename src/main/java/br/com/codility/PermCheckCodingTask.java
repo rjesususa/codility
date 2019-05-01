@@ -11,7 +11,7 @@ public class PermCheckCodingTask {
         this.permutationArray = permutationArray;
     }
 
-    public boolean isAPermutationArray() {
-        return false;
+    public Boolean isAPermutationArray() {
+        return null;
     }
 }
