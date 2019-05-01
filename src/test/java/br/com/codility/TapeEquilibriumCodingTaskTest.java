@@ -16,7 +16,7 @@ public class TapeEquilibriumCodingTaskTest {
         TapeEquilibriumCodingTask tapeEquilibriumCodingTask = new TapeEquilibriumCodingTask(new int[]{3, 1, 2, 4, 3});
         int minimalDifference = tapeEquilibriumCodingTask.findsTheMinimalDifference();
 
-        assertThat(1, is(equalTo(minimalDifference)));
+        assertThat(minimalDifference, is(equalTo(1)));
     }
 
     @Test
@@ -24,7 +24,7 @@ public class TapeEquilibriumCodingTaskTest {
         TapeEquilibriumCodingTask tapeEquilibriumCodingTask = new TapeEquilibriumCodingTask(new int[]{3, 1});
         int minimalDifference = tapeEquilibriumCodingTask.findsTheMinimalDifference();
 
-        assertThat(2, is(equalTo(minimalDifference)));
+        assertThat(minimalDifference, is(equalTo(2)));
     }
 
 }
