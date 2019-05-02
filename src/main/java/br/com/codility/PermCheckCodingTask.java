@@ -12,6 +12,17 @@ public class PermCheckCodingTask {
     }
 
     public Boolean isAPermutationArray() {
-        return null;
+        int calcSequential = 0;
+        int calcSequentialComparator = 0;
+
+        for (int seq = 1; seq <= permutationArray.length; seq++) {
+            int number = permutationArray[seq - 1];
+            calcSequentialComparator += (seq * seq);
+            calcSequential += (number * number);
+        }
+
+        boolean isAPermutationArray = (calcSequential == calcSequentialComparator);
+        return isAPermutationArray;
     }
+
 }
