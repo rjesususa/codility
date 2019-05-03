@@ -5,9 +5,9 @@ package br.com.codility;
  */
 public class FrogJmpCodingTask {
 
-    private final int initialPosition;
-    private final int destinationPosition;
-    private final int jumpDistance;
+    private final long initialPosition;
+    private final long destinationPosition;
+    private final long jumpDistance;
 
     public FrogJmpCodingTask(int initialPosition, int destinationPosition, int jumpDistance) {
         this.initialPosition = initialPosition;
@@ -15,7 +15,8 @@ public class FrogJmpCodingTask {
         this.jumpDistance = jumpDistance;
     }
 
-    public int returnsTheNumberOfjumpsFromPositionXToY() {
-        return 0;
+    public int returnsTheNumberOfJumpsFromPositionXToY() {
+        Double jumps = ((double) (((destinationPosition + jumpDistance) - jumpDistance) - initialPosition) / jumpDistance);
+        return (int) Math.ceil(jumps);
     }
 }
