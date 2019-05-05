@@ -19,7 +19,7 @@ public class BinaryGapCodingTaskTest {
     }
 
     @Test
-    public void returns5WhenTheNumberis1041() {
+    public void returns5WhenTheNumberIs1041() {
         BinaryGapCodingTask binaryGapCodingTask = new BinaryGapCodingTask(1041);
         Integer binaryGap = binaryGapCodingTask.getTheLongestBinaryGap();
         assertThat(binaryGap, is(5));
