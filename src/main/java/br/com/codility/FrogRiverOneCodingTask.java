@@ -1,8 +1,5 @@
 package br.com.codility;
 
-import java.util.HashSet;
-import java.util.Set;
-
 /**
  * Created by rjesus on 05/05/19.
  */
@@ -17,14 +14,17 @@ public class FrogRiverOneCodingTask {
     }
 
     public Integer getTheEarliestTime() {
-        Set<Integer> fallingLeavesUntilTheEdge = new HashSet<>(fallingLeaves.length);
+        boolean[] fallingLeavesUntilTheEdge = new boolean[oppositeEdgeLocation + 1];
         for (int second = 0; second < fallingLeaves.length; second++) {
-            fallingLeavesUntilTheEdge.add(fallingLeaves[second]);
-
-            if (fallingLeavesUntilTheEdge.size() == oppositeEdgeLocation) {
-                return second;
+            int fallingLeaf = fallingLeaves[second];
+            if (!fallingLeavesUntilTheEdge[fallingLeaf]) {
+                fallingLeavesUntilTheEdge[fallingLeaf] = true;
+                oppositeEdgeLocation--;
             }
 
+            if (oppositeEdgeLocation == 0) {
+                return second;
+            }
         }
 
         return -1;
