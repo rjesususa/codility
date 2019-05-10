@@ -19,4 +19,18 @@ public class GenomicRangeQueryCodingTaskTest {
         assertThat(minimalImpactFactor, is(equalTo(new int[]{2, 4, 1})));
     }
 
+    @Test
+    public void shouldReturnsValue1WhenDNASequenceIsAWithP0ANdQ0() throws Exception {
+        GenomicRangeQueryCodingTask genomicRangeQueryCodingTask = new GenomicRangeQueryCodingTask("A", new int[]{0}, new int[]{0});
+        int[] minimalImpactFactor = genomicRangeQueryCodingTask.findTheMinimalImpactFactor();
+        assertThat(minimalImpactFactor, is(equalTo(new int[]{1})));
+    }
+
+    @Test
+    public void shouldReturnsValue1WhenDNASequenceIsAWithP0ANdQ1() throws Exception {
+        GenomicRangeQueryCodingTask genomicRangeQueryCodingTask = new GenomicRangeQueryCodingTask("AT", new int[]{0}, new int[]{1});
+        int[] minimalImpactFactor = genomicRangeQueryCodingTask.findTheMinimalImpactFactor();
+        assertThat(minimalImpactFactor, is(equalTo(new int[]{1})));
+    }
+
 }
