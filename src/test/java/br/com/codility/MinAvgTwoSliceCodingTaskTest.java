@@ -18,10 +18,17 @@ public class MinAvgTwoSliceCodingTaskTest {
     }
 
     @Test
-    public void returns2AsTheSmallestStartingPositionWhenTheMinimalAverageOfTheSliceIs2() throws Exception {
+    public void returns2AsTheSmallestStartingPositionWhenTheMinimalAverageOfTheSliceIs2InOnlyNegativeNumbers() throws Exception {
         MinAvgTwoSliceCodingTask minAvgTwoSliceCodingTask = new MinAvgTwoSliceCodingTask(new int[]{-3, -5, -8, -4, -10});
         final int smallestStartingPositionOfSuchASlice = minAvgTwoSliceCodingTask.returnsTheSmallestStartingPositionOfSuchASlice();
         assertThat(smallestStartingPositionOfSuchASlice, is(2));
+    }
+
+    @Test
+    public void returns3AsTheSmallestStartingPositionWhenTheMinimalAverageOfTheSliceIs3And4() throws Exception {
+        MinAvgTwoSliceCodingTask minAvgTwoSliceCodingTask = new MinAvgTwoSliceCodingTask(new int[]{5, 4, 3, 1, 2});
+        final int smallestStartingPositionOfSuchASlice = minAvgTwoSliceCodingTask.returnsTheSmallestStartingPositionOfSuchASlice();
+        assertThat(smallestStartingPositionOfSuchASlice, is(3));
     }
 
 }
