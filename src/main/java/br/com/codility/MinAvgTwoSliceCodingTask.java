@@ -11,29 +11,32 @@ public class MinAvgTwoSliceCodingTask {
     }
 
     public int returnsTheSmallestStartingPositionOfSuchASlice() {
+
+        int lastElement = integers[integers.length - 1];
+        double lastSmallestSum = Double.MAX_VALUE;
         int smallestStartingPosition = 0;
-        double minimalAVG = (double) Integer.MAX_VALUE;
 
-        for (int i = 0; i < integers.length; i++) {
-            int startPosition = i;
-            for (int ii = i + 1; ii < integers.length; ii++) {
-                int endPosition = ii;
+        for (int i = 0; i < integers.length - 1; i++) {
+            final double sumOfNextElement = ((double) integers[i] + integers[i + 1]) / 2;
 
-                int sum = 0;
-                int qtdElements = 0;
-                for (int iii = startPosition; iii <= endPosition; iii++) {
-                    qtdElements++;
-                    sum += integers[iii];
+            boolean isTheLastElement = integers[i + 1] == lastElement;
+            if (!isTheLastElement) {
+                final double sumOfTwoNextElements = ((double) integers[i] + integers[i + 1] + integers[i + 2]) / 3;
+
+                if (sumOfNextElement < sumOfTwoNextElements && sumOfNextElement < lastSmallestSum) {
+                    lastSmallestSum = sumOfNextElement;
+                    smallestStartingPosition = i;
+                } else if (sumOfTwoNextElements < lastSmallestSum) {
+                    lastSmallestSum = sumOfTwoNextElements;
+                    smallestStartingPosition = i;
                 }
-                double avg = (double) sum / qtdElements;
-                if (avg < minimalAVG) {
-                    minimalAVG = avg;
-                    smallestStartingPosition = startPosition;
-                }
-                if (avg == minimalAVG && smallestStartingPosition > startPosition) {
-                    smallestStartingPosition = startPosition;
+            } else {
+                if (sumOfNextElement < lastSmallestSum) {
+                    lastSmallestSum = sumOfNextElement;
+                    smallestStartingPosition = i;
                 }
             }
+
         }
 
         return smallestStartingPosition;
