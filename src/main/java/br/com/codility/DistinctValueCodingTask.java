@@ -11,6 +11,26 @@ public class DistinctValueCodingTask {
     }
 
     public int countDistinctValues() {
-        return 0;
+        boolean[] negativeNumbers = new boolean[1000000];
+        boolean[] positiveNumbers = new boolean[1000000];
+        int countDistinctValues = 0;
+
+        for (int i : integers) {
+            if (i < 0) {
+                int value = i + (2 * (-1 * i));
+
+                if (!negativeNumbers[value]) {
+                    negativeNumbers[value] = true;
+                    countDistinctValues++;
+                }
+            } else {
+                if (!positiveNumbers[i]) {
+                    positiveNumbers[i] = true;
+                    countDistinctValues++;
+                }
+            }
+        }
+
+        return countDistinctValues;
     }
 }

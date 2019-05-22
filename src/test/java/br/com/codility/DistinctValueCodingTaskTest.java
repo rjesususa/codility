@@ -17,4 +17,11 @@ public class DistinctValueCodingTaskTest {
         assertThat(distinctValues, is(3));
     }
 
+    @Test
+    public void returns4WhenTheArrayContains211231Negatives() throws Exception {
+        DistinctValueCodingTask distinctValueCodingTask = new DistinctValueCodingTask(new int[]{-2,-1,-1,-2,3,-1});
+        int distinctValues = distinctValueCodingTask.countDistinctValues();
+        assertThat(distinctValues, is(3));
+    }
+
 }
