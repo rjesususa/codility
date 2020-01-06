@@ -8,6 +8,26 @@ public class MinimumNumber {
     }
 
     public double findTheMinimumNumber(){
-        return 0;
+        double minimumValue = Double.MAX_VALUE;
+        int size = list.length;
+
+        for(int count =0; count < size; count++){
+            double leftValue = list[count];
+            int rightIndex = Math.abs(count-(size-1));
+            double rightValue = list[rightIndex];
+
+            if(leftValue < minimumValue){
+                minimumValue = leftValue;
+            }
+
+            if (rightValue < minimumValue){
+                minimumValue = rightValue;
+            }
+
+            if((count+1) == rightIndex) {
+                break;
+            }
+        }
+        return minimumValue;
     }
 }
